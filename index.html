@@ -61,15 +61,46 @@
             color: var(--accent-blue);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 20px;
+            margin-left: 15px;
             font-weight: 500;
             transition: color 0.3s;
         }
 
         nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Nyelvváltó gomb */
+        .lang-switch {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .lang-switch:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .lang-switch span.active {
             color: var(--accent-blue);
         }
 
@@ -318,7 +349,7 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             header { flex-direction: column; gap: 15px; }
-            nav a { margin: 0 8px; font-size: 0.9rem; }
+            nav a { margin: 0 5px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -336,53 +367,71 @@
             </svg>
             GM <span>TECH</span>
         </a>
-        <nav>
-            <a href="#szolgaltatasok">Szolgáltatások</a>
-            <a href="#referenciak">Referenciák</a>
-            <a href="#rolam">Mérnöki Háttér</a>
-            <a href="#kapcsolat">Kapcsolat</a>
-        </nav>
+        <div class="nav-right">
+            <nav>
+                <a href="#szolgaltatasok" class="lang" data-hu="Szolgáltatások" data-en="Services">Szolgáltatások</a>
+                <a href="#referenciak" class="lang" data-hu="Referenciák" data-en="Portfolio">Referenciák</a>
+                <a href="#rolam" class="lang" data-hu="Mérnöki Háttér" data-en="Engineering">Mérnöki Háttér</a>
+                <a href="#kapcsolat" class="lang" data-hu="Kapcsolat" data-en="Contact">Kapcsolat</a>
+            </nav>
+            <button class="lang-switch" onclick="toggleLanguage()">
+                <span id="btn-hu" class="active">HU</span> / <span id="btn-en">EN</span>
+            </button>
+        </div>
     </header>
 
     <section class="hero">
-        <h1>Műszaki Vizsgálat, LabVIEW <span>& Digitális Megoldások</span></h1>
-        <p>LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással.</p>
-        <a href="#kapcsolat" class="btn">Ajánlatkérés / Kapcsolat</a>
+        <h1>
+            <span class="lang" data-hu="Műszaki Vizsgálat, LabVIEW" data-en="Engineering Testing, LabVIEW">Műszaki Vizsgálat, LabVIEW</span> 
+            <span style="color: var(--accent-blue);" class="lang" data-hu="& Digitális Megoldások" data-en="& Digital Solutions">& Digitális Megoldások</span>
+        </h1>
+        <p class="lang" 
+           data-hu="LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással."
+           data-en="LabVIEW automated measurement, car audio & automotive electronics, hardware PC/laptop maintenance, and modern business websites – with engineering precision.">
+            LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással.
+        </p>
+        <a href="#kapcsolat" class="btn lang" data-hu="Ajánlatkérés / Kapcsolat" data-en="Get in Touch / Contact">Ajánlatkérés / Kapcsolat</a>
     </section>
 
     <!-- Szolgáltatások -->
     <div class="container" id="szolgaltatasok">
-        <h2 class="section-title">Részletes Szolgáltatásaink</h2>
+        <h2 class="section-title lang" data-hu="Részletes Szolgáltatásaink" data-en="Our Services">Részletes Szolgáltatásaink</h2>
         
         <div class="grid">
             <!-- 1. PC & Laptop Szerviz -->
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80" alt="Hardveres IT Szerviz">
                 <div class="card-content">
-                    <h3>PC & Laptop Szerviz</h3>
-                    <p class="card-intro">Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek.</p>
+                    <h3 class="lang" data-hu="PC & Laptop Szerviz" data-en="PC & Laptop Repair">PC & Laptop Szerviz</h3>
+                    <p class="card-intro lang" 
+                       data-hu="Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek."
+                       data-en="Complete hardware maintenance, performance tuning, and software installation for individuals and businesses.">
+                        Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek.
+                    </p>
                     <ul>
-                        <li><strong>Hardveres tisztítás & Újrapasztázás:</strong> Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen.</li>
-                        <li><strong>Akkumulátor & Kijelző csere:</strong> Akkumulátorok és sérült kijelzők szakszerű cseréje.</li>
-                        <li><strong>Hardveres bővítés (SSD & RAM):</strong> Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel.</li>
-                        <li><strong>Windows & Szoftvertelepítés:</strong> Operációs rendszerek és illesztőprogramok beállítása.</li>
-                        <li><strong>Adatmentés & Helyreállítás:</strong> Meghibásodott rendszerek adatmentése és vírusirtás.</li>
+                        <li><strong class="lang" data-hu="Hardveres tisztítás & Újrapasztázás:" data-en="Cleaning & Repasting:">Hardveres tisztítás & Újrapasztázás:</strong> <span class="lang" data-hu="Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen." data-en="Dust removal and thermal paste replacement against overheating.">Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen.</span></li>
+                        <li><strong class="lang" data-hu="Akkumulátor & Kijelző csere:" data-en="Battery & Screen Replacement:">Akkumulátor & Kijelző csere:</strong> <span class="lang" data-hu="Akkumulátorok és sérült kijelzők szakszerű cseréje." data-en="Professional replacement of batteries and damaged displays.">Akkumulátorok és sérült kijelzők szakszerű cseréje.</span></li>
+                        <li><strong class="lang" data-hu="Hardveres bővítés (SSD & RAM):" data-en="Hardware Upgrades (SSD & RAM):">Hardveres bővítés (SSD & RAM):</strong> <span class="lang" data-hu="Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel." data-en="Speeding up slow systems with high-speed SSDs and RAM additions.">Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel.</span></li>
+                        <li><strong class="lang" data-hu="Windows & Szoftvertelepítés:" data-en="OS & Software Setup:">Windows & Szoftvertelepítés:</strong> <span class="lang" data-hu="Operációs rendszerek és illesztőprogramok beállítása." data-en="Clean OS installations, driver configuration, and software setup.">Operációs rendszerek és illesztőprogramok beállítása.</span></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 2. Autóhifi & Járműelektronika (ÚJ) -->
+            <!-- 2. Autóhifi & Járműelektronika -->
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangtechnika">
                 <div class="card-content">
-                    <h3>Autóhifi & Járműelektronika</h3>
-                    <p class="card-intro">Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés.</p>
+                    <h3 class="lang" data-hu="Autóhifi & Járműelektronika" data-en="Car Audio & Electronics">Autóhifi & Járműelektronika</h3>
+                    <p class="card-intro lang" 
+                       data-hu="Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés."
+                       data-en="Factory audio upgrades, custom car stereo installation, and soundproofing.">
+                        Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés.
+                    </p>
                     <ul>
-                        <li><strong>Fejegység & Rádiócsere:</strong> Gyári rádiók cseréje modern Android/CarPlay/Bluetooth fejegységekre, keretek illesztésével.</li>
-                        <li><strong>Hangszórócsere & Ajtószigetelés:</strong> Gyári hangszórók cseréje prémium komponens szettekre, egyedi kiemelőkeretekkel.</li>
-                        <li><strong>Erősítő & Mélyláda bekötés:</strong> Táp- és RCA kábelezés kiépítése, táp-biztosítékolás, mélyládák és erősítők beépítése.</li>
-                        <li><strong>Zajcsillapítás & Akusztika:</strong> Ajtók és csomagtér szigetelése prémium rezgéscsillapító anyagokkal a tisztább hangzásért.</li>
-                        <li><strong>Egyedi Kiegészítők:</strong> Tolatókamerák, kiegészítő elektronika és igényes vezetékezés gyári színvonalon.</li>
+                        <li><strong class="lang" data-hu="Fejegység & Rádiócsere:" data-en="Headunit Replacement:">Fejegység & Rádiócsere:</strong> <span class="lang" data-hu="Gyári rádiók cseréje Android/CarPlay/Bluetooth egységekre." data-en="Upgrading factory radios to modern Android/CarPlay/Bluetooth units.">Gyári rádiók cseréje Android/CarPlay/Bluetooth egységekre.</span></li>
+                        <li><strong class="lang" data-hu="Hangszórócsere & Ajtószigetelés:" data-en="Speakers & Sound Deadening:">Hangszórócsere & Ajtószigetelés:</strong> <span class="lang" data-hu="Prémium komponens szettek és ajtórezgéscsillapítás." data-en="Component speaker upgrades with custom mounts and door damping.">Prémium komponens szettek és ajtórezgéscsillapítás.</span></li>
+                        <li><strong class="lang" data-hu="Erősítő & Mélyláda bekötés:" data-en="Amplifiers & Subwoofers:">Erősítő & Mélyláda bekötés:</strong> <span class="lang" data-hu="Táp- és RCA kábelezés kiépítése, mélyládák szakszerű beszerelése." data-en="Power & RCA cabling wiring, fuse protection, amplifier installation.">Táp- és RCA kábelezés kiépítése, mélyládák szakszerű beszerelése.</span></li>
+                        <li><strong class="lang" data-hu="Zajcsillapítás & Akusztika:" data-en="Acoustic Deadening:">Zajcsillapítás & Akusztika:</strong> <span class="lang" data-hu="Ajtók és csomagtér szigetelése rezgéscsillapító anyagokkal." data-en="Applying soundproofing materials for quieter cabin and better bass.">Ajtók és csomagtér szigetelése rezgéscsillapító anyagokkal.</span></li>
                     </ul>
                 </div>
             </div>
@@ -391,13 +440,16 @@
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés és Fejlesztés">
                 <div class="card-content">
-                    <h3>Weboldalkészítés & Web</h3>
-                    <p class="card-intro">Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére.</p>
+                    <h3 class="lang" data-hu="Weboldalkészítés & Web" data-en="Web Design & Development">Weboldalkészítés & Web</h3>
+                    <p class="card-intro lang" 
+                       data-hu="Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére."
+                       data-en="Modern, fast, and mobile-responsive websites designed for small and medium businesses.">
+                        Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére.
+                    </p>
                     <ul>
-                        <li><strong>Landing Page & Cégoldalak:</strong> Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása.</li>
-                        <li><strong>Mobilra optimalizált kivitel:</strong> Garantáltan tökéletes megjelenés minden kijelzőméreten.</li>
-                        <li><strong>Alapvető SEO:</strong> Technikai keresőoptimalizálás a jó Google helyezésekért.</li>
-                        <li><strong>Domain & Tárhely ügyintézés:</strong> Regisztráció, tárhely beállítás és e-mail fiókok.</li>
+                        <li><strong class="lang" data-hu="Landing Page & Cégoldalak:" data-en="Landing Pages & Business Sites:">Landing Page & Cégoldalak:</strong> <span class="lang" data-hu="Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása." data-en="Custom-coded, high-converting landing pages and portfolio sites.">Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása.</span></li>
+                        <li><strong class="lang" data-hu="Mobilra optimalizált:" data-en="Mobile Responsive:">Mobilra optimalizált:</strong> <span class="lang" data-hu="Garantáltan tökéletes megjelenés minden kijelzőméreten." data-en="Perfect layout and performance across all smartphones and tablets.">Garantáltan tökéletes megjelenés minden kijelzőméreten.</span></li>
+                        <li><strong class="lang" data-hu="Alapvető SEO:" data-en="Technical SEO:">Alapvető SEO:</strong> <span class="lang" data-hu="Technikai keresőoptimalizálás a jó Google helyezésekért." data-en="Built-in speed optimization and clean code for Google search ranking.">Technikai keresőoptimalizálás a jó Google helyezésekért.</span></li>
                     </ul>
                 </div>
             </div>
@@ -406,13 +458,16 @@
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="LabVIEW Tesztautomatizálás">
                 <div class="card-content">
-                    <h3>LabVIEW & Adatgyűjtés</h3>
-                    <p class="card-intro">Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben.</p>
+                    <h3 class="lang" data-hu="LabVIEW & Adatgyűjtés" data-en="LabVIEW & Data Acquisition">LabVIEW & Adatgyűjtés</h3>
+                    <p class="card-intro lang" 
+                       data-hu="Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben."
+                       data-en="Development of custom automated measurement and test software for industrial applications.">
+                        Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben.
+                    </p>
                     <ul>
-                        <li><strong>Műszerillesztés & Kommunikáció:</strong> DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet).</li>
-                        <li><strong>Automata tesztszekvenciák:</strong> Gyártósori és laboratóriumi mérési folyamatok automatizálása.</li>
-                        <li><strong>Egyedi GUI:</strong> Letisztult kezelőfelületek és valós idejű adatmegjelenítés.</li>
-                        <li><strong>Adatmentés & Riportok:</strong> Mérési adatok strukturált mentése és jegyzőkönyvezés.</li>
+                        <li><strong class="lang" data-hu="Műszerillesztés:" data-en="Instrument Control:">Műszerillesztés:</strong> <span class="lang" data-hu="DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet)." data-en="Integrating DAQ hardware and benchtop instruments (GPIB, RS232, LAN).">DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet).</span></li>
+                        <li><strong class="lang" data-hu="Automata tesztszekvenciák:" data-en="Automated Sequences:">Automata tesztszekvenciák:</strong> <span class="lang" data-hu="Gyártósori és laboratóriumi mérési folyamatok automatizálása." data-en="End-of-line functional testing and automated laboratory measurements.">Gyártósori és laboratóriumi mérési folyamatok automatizálása.</span></li>
+                        <li><strong class="lang" data-hu="Egyedi GUI & Riportok:" data-en="Custom GUI & Reports:">Egyedi GUI & Riportok:</strong> <span class="lang" data-hu="Letisztult kezelőfelületek és mérési adatok mentése." data-en="User-friendly control interfaces, real-time plotting, and data logging.">Letisztult kezelőfelületek és mérési adatok mentése.</span></li>
                     </ul>
                 </div>
             </div>
@@ -421,13 +476,16 @@
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Műszaki Vizsgálat és Elektronika">
                 <div class="card-content">
-                    <h3>Műszaki Vizsgálat & Mérés</h3>
-                    <p class="card-intro">Elektronikai berendezések, áramkörök és modulok műszeres beviszgálása és hibadiagnosztikája.</p>
+                    <h3 class="lang" data-hu="Műszaki Vizsgálat & Mérés" data-en="Electronics & Testing">Műszaki Vizsgálat & Mérés</h3>
+                    <p class="card-intro lang" 
+                       data-hu="Elektronikai berendezések, áramkörök és modulok műszeres bevizsgálása és hibadiagnosztikája."
+                       data-en="Benchtop testing, component-level troubleshooting, and evaluation of electronic circuits.">
+                        Elektronikai berendezések, áramkörök és modulok műszeres bevizsgálása és hibadiagnosztikája.
+                    </p>
                     <ul>
-                        <li><strong>Funkcionális mérések:</strong> Áramköri lapok és berendezések paramétereinek ellenőrzése.</li>
-                        <li><strong>Áramköri hibakeresés:</strong> Hibalokalizálás és diagnosztika műszeres mérésekkel.</li>
-                        <li><strong>Mérési jegyzőkönyvezés:</strong> Átlátható műszaki dokumentációk kiállítása.</li>
-                        <li><strong>Elektronikai tanácsadás:</strong> Tesztelési folyamatok hatékonyságának növelése.</li>
+                        <li><strong class="lang" data-hu="Funkcionális mérések:" data-en="Functional Testing:">Funkcionális mérések:</strong> <span class="lang" data-hu="Áramköri lapok és berendezések paramétereinek ellenőrzése." data-en="Validating circuit performance, signal integrity, and supply parameters.">Áramköri lapok és berendezések paramétereinek ellenőrzése.</span></li>
+                        <li><strong class="lang" data-hu="Áramköri hibakeresés:" data-en="Troubleshooting:">Áramköri hibakeresés:</strong> <span class="lang" data-hu="Hibalokalizálás és diagnosztika műszeres mérésekkel." data-en="Component-level fault isolation using oscilloscopes and meters.">Hibalokalizálás és diagnosztika műszeres mérésekkel.</span></li>
+                        <li><strong class="lang" data-hu="Jegyzőkönyvezés:" data-en="Documentation:">Jegyzőkönyvezés:</strong> <span class="lang" data-hu="Átlátható műszaki dokumentációk és mérési jegyzőkönyvek." data-en="Detailed engineering reports and measurement documentation.">Átlátható műszaki dokumentációk és mérési jegyzőkönyvek.</span></li>
                     </ul>
                 </div>
             </div>
@@ -436,17 +494,21 @@
 
     <!-- REFERENCIÁK SZEKCIÓ -->
     <div class="container" id="referenciak">
-        <h2 class="section-title">Kiemelt Referenciák & Munkák</h2>
+        <h2 class="section-title lang" data-hu="Kiemelt Referenciák & Munkák" data-en="Featured Projects">Kiemelt Referenciák & Munkák</h2>
         
         <div class="grid">
-            <!-- 1. Autóhifi Referencia (ÚJ) -->
+            <!-- 1. Autóhifi Referencia -->
             <div class="card ref-card">
                 <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangszigetelés">
                 <div class="card-content">
                     <span class="tag">Autóhifi / Akusztika</span>
-                    <h3>Komplett Autóhifi & Ajtószigetelés</h3>
-                    <p>Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése.</p>
-                    <div class="ref-tech">Silent Coat Szigetelés • Erősítő Kábelezés • Kiemelőkeret</div>
+                    <h3 class="lang" data-hu="Komplett Autóhifi & Ajtószigetelés" data-en="Car Audio & Sound Deadening">Komplett Autóhifi & Ajtószigetelés</h3>
+                    <p class="lang" 
+                       data-hu="Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése."
+                       data-en="Upgrading factory speakers to high-end component audio, applying butyl deadening mats, and wiring amplifier with subwoofer.">
+                        Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése.
+                    </p>
+                    <div class="ref-tech">Silent Coat • Amplifier Cabling • Custom Mounts</div>
                 </div>
             </div>
 
@@ -455,8 +517,12 @@
                 <img src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=800&q=80" alt="Ipari Mérőrendszer Fejlesztés">
                 <div class="card-content">
                     <span class="tag">LabVIEW / Automatizálás</span>
-                    <h3>Automata Tesztpad Fejlesztés</h3>
-                    <p>Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez.</p>
+                    <h3 class="lang" data-hu="Automata Tesztpad Fejlesztés" data-en="Automated Test Rig Development">Automata Tesztpad Fejlesztés</h3>
+                    <p class="lang" 
+                       data-hu="Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez."
+                       data-en="Custom software and DAQ system engineered for end-of-line functional testing of industrial electronic assemblies.">
+                        Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez.
+                    </p>
                     <div class="ref-tech">LabVIEW • NI DAQ • RS232 • Excel Export</div>
                 </div>
             </div>
@@ -466,9 +532,13 @@
                 <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" alt="IT Szerviz és Karbantartás">
                 <div class="card-content">
                     <span class="tag">IT Szerviz / Hardver</span>
-                    <h3>Céges Laptop Flotta Felújítás</h3>
-                    <p>15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében.</p>
-                    <div class="ref-tech">SSD & RAM Bővítés • Tisztítás • Win11 Telepítés</div>
+                    <h3 class="lang" data-hu="Céges Laptop Flotta Felújítás" data-en="Corporate Laptop Fleet Maintenance">Céges Laptop Flotta Felújítás</h3>
+                    <p class="lang" 
+                       data-hu="15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében."
+                       data-en="Hardware maintenance, thermal repasting, and SSD upgrades across 15 workstation laptops for reliable performance.">
+                        15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében.
+                    </p>
+                    <div class="ref-tech">SSD & RAM Upgrade • Thermal Repaste • Win11</div>
                 </div>
             </div>
 
@@ -477,8 +547,12 @@
                 <img src="https://images.unsplash.com/photo-1467238307002-480ffdd960d3?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés">
                 <div class="card-content">
                     <span class="tag">Weboldal / Dizájn</span>
-                    <h3>Helyi Vállalkozás Landing Page</h3>
-                    <p>Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval.</p>
+                    <h3 class="lang" data-hu="Helyi Vállalkozás Landing Page" data-en="Business Landing Page">Helyi Vállalkozás Landing Page</h3>
+                    <p class="lang" 
+                       data-hu="Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval."
+                       data-en="Ultra-fast, responsive landing page with contact integration, clean styling, and SEO-friendly markup.">
+                        Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval.
+                    </p>
                     <div class="ref-tech">HTML5 • CSS3 • JavaScript • SEO</div>
                 </div>
             </div>
@@ -489,9 +563,17 @@
     <div class="container" id="rolam">
         <div class="about-box">
             <div class="about-text">
-                <h3>Precizitás és Mérnöki Szemlélet</h3>
-                <p>A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam.</p>
-                <p>Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek.</p>
+                <h3 class="lang" data-hu="Precizitás és Mérnöki Szemlélet" data-en="Engineering Approach & Precision">Precizitás és Mérnöki Szemlélet</h3>
+                <p class="lang" 
+                   data-hu="A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom,hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam."
+                   data-en="GM Tech is backed by years of professional test engineering and electronics experience. My mission is to deliver high-quality, stable, and well-documented technical solutions.">
+                    A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam.
+                </p>
+                <p class="lang" 
+                   data-hu="Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek."
+                   data-en="Whether it is custom car audio installation, PC hardware repasting & speedup, automated LabVIEW software, or modern responsive web pages – every task is handled with thorough planning and fast turnaround times.">
+                    Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek.
+                </p>
             </div>
             <div class="about-img">
                 <img src="profile.jpg" alt="Galanics Máté - GM Tech">
@@ -501,8 +583,12 @@
 
     <!-- Kapcsolat -->
     <section class="contact" id="kapcsolat">
-        <h2 class="section-title">Kapcsolatfelvétel</h2>
-        <p>Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!</p>
+        <h2 class="section-title lang" data-hu="Kapcsolatfelvétel" data-en="Contact Us">Kapcsolatfelvétel</h2>
+        <p class="lang" 
+           data-hu="Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!"
+           data-en="Get in touch for car audio installations, computer repairs, web design, or custom software solutions!">
+            Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!
+        </p>
         
         <div class="contact-info">
             <div class="contact-item">
@@ -510,19 +596,50 @@
                 <span>info@gmtech.hu</span>
             </div>
             <div class="contact-item">
-                <strong>Helyszín</strong>
-                <span>Vác és Börzsöny régió / Remote</span>
+                <strong class="lang" data-hu="Helyszín" data-en="Location">Helyszín</strong>
+                <span>Vác & Börzsöny / Remote</span>
             </div>
             <div class="contact-item">
-                <strong>Rendelkezésre állás</strong>
-                <span>Rugalmas idősávban</span>
+                <strong class="lang" data-hu="Rendelkezésre állás" data-en="Availability">Rendelkezésre állás</strong>
+                <span class="lang" data-hu="Rugalmas idősávban" data-en="Flexible hours">Rugalmas idősávban</span>
             </div>
         </div>
     </section>
 
     <footer>
-        <p><strong>GM Tech</strong> – Galanics Máté e.v. | Adószám: [Adószámod] | Minden jog fenntartva.</p>
+        <p><strong>GM Tech</strong> – Galanics Máté e.v. | <span class="lang" data-hu="Minden jog fenntartva." data-en="All rights reserved.">Minden jog fenntartva.</span></p>
     </footer>
 
+    <!-- Nyelvváltó Script -->
+    <script>
+        let currentLang = localStorage.getItem('gmtech_lang') || 'hu';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('gmtech_lang', lang);
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.lang').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) el.textContent = text;
+            });
+
+            if (lang === 'hu') {
+                document.getElementById('btn-hu').classList.add('active');
+                document.getElementById('btn-en').classList.remove('active');
+            } else {
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('btn-hu').classList.remove('active');
+            }
+        }
+
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'hu' ? 'en' : 'hu');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLanguage(currentLang);
+        });
+    </script>
 </body>
 </html>
