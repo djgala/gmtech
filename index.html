@@ -639,13 +639,54 @@
             border-top: 1px solid var(--border-color);
         }
 
+        /* OPTIMIZÁLT MOBIL NÉZET */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            header { flex-direction: column; gap: 15px; }
-            nav { flex-wrap: wrap; justify-content: center; }
-            nav a { font-size: 0.85rem; }
-            .ba-section { padding: 20px; }
-            .calc-box { padding: 20px; }
+            header { 
+                flex-direction: column; 
+                gap: 12px; 
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav { 
+                display: flex;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+                gap: 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav a { 
+                font-size: 0.85rem; 
+                padding: 6px 14px;
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                flex-shrink: 0;
+            }
+
+            .hero h1 { 
+                font-size: 2rem; 
+            }
+
+            .ba-section, .calc-box { 
+                padding: 20px; 
+            }
         }
     </style>
 </head>
