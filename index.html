@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GM Tech – Tesztautomatizálás, Műszaki Vizsgálat, IT & Webfejlesztés</title>
+    <title>GM Tech – Műszaki Vizsgálat, LabVIEW, IT & Webfejlesztés</title>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
+            --bg-color: #0b0f17;
+            --card-bg: #131924;
+            --card-hover-bg: #1a2332;
             --accent-blue: #00E5FF;
-            --accent-glow: rgba(0, 229, 255, 0.25);
+            --accent-blue-glow: rgba(0, 229, 255, 0.35);
+            --accent-green: #00E676;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
-            --border-color: #30363d;
+            --border-color: #212b3d;
+            --border-glow: #00e5ff88;
         }
 
         * {
@@ -30,12 +33,16 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 229, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 65%, rgba(0, 230, 118, 0.03) 0%, transparent 40%);
         }
 
-        /* Navigáció */
+        /* Header & Nav */
         header {
-            background-color: rgba(22, 27, 34, 0.9);
-            backdrop-filter: blur(10px);
+            background-color: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -59,45 +66,51 @@
 
         .logo span {
             color: var(--accent-blue);
+            text-shadow: 0 0 12px var(--accent-blue-glow);
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 15px;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
         }
 
         nav a:hover {
             color: var(--accent-blue);
+            text-shadow: 0 0 8px var(--accent-blue-glow);
         }
 
-        /* Nyelvváltó gomb */
         .lang-switch {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 5px 10px;
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 700;
             font-size: 0.85rem;
             display: flex;
-            gap: 5px;
+            gap: 6px;
             align-items: center;
             transition: all 0.3s;
         }
 
         .lang-switch:hover {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-glow);
+            box-shadow: 0 0 12px var(--accent-blue-glow);
         }
 
         .lang-switch span.active {
@@ -106,19 +119,39 @@
 
         /* Hero Szekció */
         .hero {
-            padding: 100px 5% 80px;
+            padding: 110px 5% 80px;
             text-align: center;
-            background: radial-gradient(circle at center, rgba(0,229,255,0.08) 0%, rgba(13,17,23,1) 70%);
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: var(--accent-blue);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .hero h1 span {
             color: var(--accent-blue);
+            background: linear-gradient(135deg, #00E5FF 0%, #00E676 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
@@ -128,93 +161,144 @@
             margin: 0 auto 35px;
         }
 
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background-color: var(--accent-blue);
-            color: #000;
+            color: #0b0f17;
             padding: 14px 32px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 700;
             text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-blue-glow);
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
         }
 
-        /* Container & Grid Structure */
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--accent-blue-glow);
+        }
+
+        /* Container & Titles */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 5%;
+            padding: 80px 5%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
             margin-bottom: 50px;
-            position: relative;
+            font-size: 1.05rem;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-blue);
-            margin: 10px auto 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            margin: 12px auto 0;
             border-radius: 2px;
         }
 
+        /* Grid & Service Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        /* Card Styles */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.15);
+            background-color: var(--card-hover-bg);
         }
 
         .card img {
             width: 100%;
-            height: 180px;
+            height: 190px;
             object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .card-content {
-            padding: 22px;
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .card-content h3 {
-            font-size: 1.3rem;
+        .card-icon-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 12px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 229, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--accent-blue);
+        }
+
+        .card-content h3 {
+            font-size: 1.35rem;
+            color: #fff;
         }
 
         .card-intro {
             font-size: 0.95rem;
-            color: var(--text-main);
-            margin-bottom: 15px;
-            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 18px;
         }
 
         .card-content ul {
@@ -224,15 +308,14 @@
 
         .card-content ul li {
             position: relative;
-            padding-left: 20px;
+            padding-left: 22px;
             margin-bottom: 10px;
             color: var(--text-muted);
             font-size: 0.9rem;
-            line-height: 1.4;
         }
 
         .card-content ul li::before {
-            content: "▹";
+            content: "✓";
             position: absolute;
             left: 0;
             color: var(--accent-blue);
@@ -243,16 +326,236 @@
             color: var(--text-main);
         }
 
-        /* Referenciák Kártya Stílusok */
+        /* BEFORE / AFTER IMAGE SLIDER SECTION */
+        .ba-section {
+            background-color: rgba(19, 25, 36, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .ba-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ba-slider-container {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            user-select: none;
+        }
+
+        .ba-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .ba-after {
+            background-image: url('https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=1000&q=80');
+        }
+
+        .ba-before {
+            background-image: url('https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1000&q=80');
+        }
+
+        .ba-label {
+            position: absolute;
+            top: 15px;
+            padding: 6px 14px;
+            background: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            z-index: 5;
+        }
+
+        .ba-label-before { left: 15px; }
+        .ba-label-after { right: 15px; }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent-blue);
+            box-shadow: 0 0 12px var(--accent-blue-glow);
+            z-index: 10;
+            cursor: ew-resize;
+        }
+
+        .ba-handle-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-blue);
+            color: #0b0f17;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px var(--accent-blue-glow);
+        }
+
+        /* PRICE CALCULATOR SECTION */
+        .calc-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 850px) {
+            .calc-grid { grid-template-columns: 1fr; }
+        }
+
+        .calc-group {
+            margin-bottom: 25px;
+        }
+
+        .calc-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .calc-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .calc-option-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .calc-option-btn:hover {
+            border-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .calc-option-btn.active {
+            background: rgba(0, 229, 255, 0.12);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--accent-blue-glow);
+        }
+
+        .calc-checkboxes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .calc-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-color);
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calc-checkbox-item:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .calc-checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .calc-result-box {
+            background: linear-gradient(145deg, #18202e, #0f1520);
+            border: 1px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+        }
+
+        .calc-result-price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin: 15px 0;
+            text-shadow: 0 0 15px var(--accent-blue-glow);
+        }
+
+        .calc-result-details {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Referenciák */
         .ref-card .tag {
             display: inline-block;
             background-color: rgba(0, 229, 255, 0.1);
             color: var(--accent-blue);
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border: 1px solid rgba(0, 229, 255, 0.3);
@@ -271,51 +574,36 @@
             font-weight: 600;
             margin-top: auto;
             border-top: 1px dashed var(--border-color);
-            padding-top: 10px;
+            padding-top: 12px;
         }
 
-        /* Mérnöki Szemlélet / Rólam */
+        /* Rólam */
         .about-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 40px;
-            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 40px;
             align-items: center;
         }
 
-        .about-text {
-            flex: 1 1 500px;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .about-img {
-            flex: 1 1 350px;
-        }
-
+        .about-text { flex: 1 1 480px; }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 15px; color: #fff; }
+        .about-text p { color: var(--text-muted); margin-bottom: 15px; }
+        .about-img { flex: 1 1 350px; }
         .about-img img {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             object-fit: cover;
         }
 
-        /* Kapcsolat & Lábléc */
+        /* Contact & Footer */
         .contact {
             text-align: center;
-            padding: 60px 5%;
+            padding: 80px 5%;
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
         }
@@ -325,17 +613,22 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .contact-item {
-            font-size: 1.1rem;
+            background: var(--bg-color);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            min-width: 200px;
         }
 
         .contact-item strong {
             color: var(--accent-blue);
             display: block;
             margin-bottom: 5px;
+            font-size: 1.1rem;
         }
 
         footer {
@@ -347,17 +640,21 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
             header { flex-direction: column; gap: 15px; }
-            nav a { margin: 0 5px; font-size: 0.85rem; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 0.85rem; }
+            .ba-section { padding: 20px; }
+            .calc-box { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <a href="#" class="logo">
-            <svg width="35" height="35" viewBox="0 0 100 100">
+            <svg width="32" height="32" viewBox="0 0 100 100">
                 <path d="M 10 30 L 10 10 L 30 10" fill="none" stroke="#00E5FF" stroke-width="6"/>
                 <path d="M 70 10 L 90 10 L 90 30" fill="none" stroke="#00E5FF" stroke-width="6"/>
                 <path d="M 90 70 L 90 90 L 70 90" fill="none" stroke="#00E5FF" stroke-width="6"/>
@@ -370,6 +667,8 @@
         <div class="nav-right">
             <nav>
                 <a href="#szolgaltatasok" class="lang" data-hu="Szolgáltatások" data-en="Services">Szolgáltatások</a>
+                <a href="#elotte-utana" class="lang" data-hu="Előtte/Utána" data-en="Before/After">Előtte/Utána</a>
+                <a href="#kalkulator" class="lang" data-hu="Kalkulátor" data-en="Calculator">Kalkulátor</a>
                 <a href="#referenciak" class="lang" data-hu="Referenciák" data-en="Portfolio">Referenciák</a>
                 <a href="#rolam" class="lang" data-hu="Mérnöki Háttér" data-en="Engineering">Mérnöki Háttér</a>
                 <a href="#kapcsolat" class="lang" data-hu="Kapcsolat" data-en="Contact">Kapcsolat</a>
@@ -380,39 +679,47 @@
         </div>
     </header>
 
+    <!-- Hero -->
     <section class="hero">
+        <div class="hero-badge lang" data-hu="⚡ Mérnöki Szemlélet & Precizitás" data-en="⚡ Engineering Precision & Expertise">⚡ Mérnöki Szemlélet & Precizitás</div>
         <h1>
-            <span class="lang" data-hu="Műszaki Vizsgálat, LabVIEW" data-en="Engineering Testing, LabVIEW">Műszaki Vizsgálat, LabVIEW</span> 
-            <span style="color: var(--accent-blue);" class="lang" data-hu="& Digitális Megoldások" data-en="& Digital Solutions">& Digitális Megoldások</span>
+            <span class="lang" data-hu="Műszaki Mérések, IT Szerviz" data-en="Technical Testing, IT Service">Műszaki Mérések, IT Szerviz</span><br>
+            <span class="lang" data-hu="& Egyedi Digitális Megoldások" data-en="& Custom Digital Solutions">& Egyedi Digitális Megoldások</span>
         </h1>
         <p class="lang" 
-           data-hu="LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással."
-           data-en="LabVIEW automated measurement, car audio & automotive electronics, hardware PC/laptop maintenance, and modern business websites – with engineering precision.">
-            LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással.
+           data-hu="LabVIEW alapú tesztautomatizálás, autóhifi beépítés és akusztikai szigetelés, hardveres PC/laptop felújítás, valamint szupergyors cégweboldalak – garanciával."
+           data-en="LabVIEW automated measurement, car audio installation & acoustic soundproofing, PC/laptop hardware upgrades, and ultra-fast business websites – with warranty.">
+            LabVIEW alapú tesztautomatizálás, autóhifi beépítés és akusztikai szigetelés, hardveres PC/laptop felújítás, valamint szupergyors cégweboldalak – garanciával.
         </p>
-        <a href="#kapcsolat" class="btn lang" data-hu="Ajánlatkérés / Kapcsolat" data-en="Get in Touch / Contact">Ajánlatkérés / Kapcsolat</a>
+        <div class="hero-btns">
+            <a href="#kalkulator" class="btn lang" data-hu="Árajánlat Kalkulátor" data-en="Cost Calculator">Árajánlat Kalkulátor</a>
+            <a href="#kapcsolat" class="btn btn-outline lang" data-hu="Kapcsolatfelvétel" data-en="Contact Us">Kapcsolatfelvétel</a>
+        </div>
     </section>
 
     <!-- Szolgáltatások -->
     <div class="container" id="szolgaltatasok">
-        <h2 class="section-title lang" data-hu="Részletes Szolgáltatásaink" data-en="Our Services">Részletes Szolgáltatásaink</h2>
+        <h2 class="section-title lang" data-hu="Szolgáltatások" data-en="Services">Szolgáltatások</h2>
+        <p class="section-subtitle lang" data-hu="Válassza ki az Önnek megfelelő mérnöki vagy technikai szolgáltatást" data-en="Choose the engineering or technical service tailored to your needs">Válassza ki az Önnek megfelelő mérnöki vagy technikai szolgáltatást</p>
         
         <div class="grid">
             <!-- 1. PC & Laptop Szerviz -->
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80" alt="Hardveres IT Szerviz">
                 <div class="card-content">
-                    <h3 class="lang" data-hu="PC & Laptop Szerviz" data-en="PC & Laptop Repair">PC & Laptop Szerviz</h3>
+                    <div class="card-icon-header">
+                        <div class="card-icon">💻</div>
+                        <h3 class="lang" data-hu="PC & Laptop Szerviz" data-en="PC & Laptop Repair">PC & Laptop Szerviz</h3>
+                    </div>
                     <p class="card-intro lang" 
-                       data-hu="Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek."
-                       data-en="Complete hardware maintenance, performance tuning, and software installation for individuals and businesses.">
-                        Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek.
+                       data-hu="Teljes körű hardveres karbantartás, hűtésoptimalizálás és SSD bővítés."
+                       data-en="Complete hardware maintenance, cooling optimization, and SSD upgrades.">
+                        Teljes körű hardveres karbantartás, hűtésoptimalizálás és SSD bővítés.
                     </p>
                     <ul>
-                        <li><strong class="lang" data-hu="Hardveres tisztítás & Újrapasztázás:" data-en="Cleaning & Repasting:">Hardveres tisztítás & Újrapasztázás:</strong> <span class="lang" data-hu="Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen." data-en="Dust removal and thermal paste replacement against overheating.">Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen.</span></li>
-                        <li><strong class="lang" data-hu="Akkumulátor & Kijelző csere:" data-en="Battery & Screen Replacement:">Akkumulátor & Kijelző csere:</strong> <span class="lang" data-hu="Akkumulátorok és sérült kijelzők szakszerű cseréje." data-en="Professional replacement of batteries and damaged displays.">Akkumulátorok és sérült kijelzők szakszerű cseréje.</span></li>
-                        <li><strong class="lang" data-hu="Hardveres bővítés (SSD & RAM):" data-en="Hardware Upgrades (SSD & RAM):">Hardveres bővítés (SSD & RAM):</strong> <span class="lang" data-hu="Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel." data-en="Speeding up slow systems with high-speed SSDs and RAM additions.">Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel.</span></li>
-                        <li><strong class="lang" data-hu="Windows & Szoftvertelepítés:" data-en="OS & Software Setup:">Windows & Szoftvertelepítés:</strong> <span class="lang" data-hu="Operációs rendszerek és illesztőprogramok beállítása." data-en="Clean OS installations, driver configuration, and software setup.">Operációs rendszerek és illesztőprogramok beállítása.</span></li>
+                        <li><strong class="lang" data-hu="Tisztítás & Újrapasztázás:" data-en="Cleaning & Repasting:">Tisztítás & Újrapasztázás:</strong> <span class="lang" data-hu="Prémium Arctic MX / Noctua pasztázás túlmelegedés ellen." data-en="Premium thermal repasting against thermal throttling.">Prémium Arctic MX / Noctua pasztázás túlmelegedés ellen.</span></li>
+                        <li><strong class="lang" data-hu="SSD & RAM Bővítés:" data-en="SSD & RAM Upgrades:">SSD & RAM Bővítés:</strong> <span class="lang" data-hu="Régi rendszerek 3-5x-ös felgyorsítása." data-en="Boosting older PCs up to 3-5x speed.">Régi rendszerek 3-5x-ös felgyorsítása.</span></li>
+                        <li><strong class="lang" data-hu="Kijelző & Akku csere:" data-en="Screen & Battery Swap:">Kijelző & Akku csere:</strong> <span class="lang" data-hu="Gyári minőségű cserealkatrészek beszerelése." data-en="Installing OEM quality replacement parts.">Gyári minőségű cserealkatrészek beszerelése.</span></li>
                     </ul>
                 </div>
             </div>
@@ -421,72 +728,193 @@
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangtechnika">
                 <div class="card-content">
-                    <h3 class="lang" data-hu="Autóhifi & Járműelektronika" data-en="Car Audio & Electronics">Autóhifi & Járműelektronika</h3>
+                    <div class="card-icon-header">
+                        <div class="card-icon">🔊</div>
+                        <h3 class="lang" data-hu="Autóhifi & Akusztika" data-en="Car Audio & Acoustics">Autóhifi & Akusztika</h3>
+                    </div>
                     <p class="card-intro lang" 
-                       data-hu="Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés."
-                       data-en="Factory audio upgrades, custom car stereo installation, and soundproofing.">
-                        Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés.
+                       data-hu="Gyári rendszerek korszerűsítése, Silent Coat rezgéscsillapítás és kábelezés."
+                       data-en="Upgrading factory radios, Silent Coat damping, and amplifier wiring.">
+                        Gyári rendszerek korszerűsítése, Silent Coat rezgéscsillapítás és kábelezés.
                     </p>
                     <ul>
-                        <li><strong class="lang" data-hu="Fejegység & Rádiócsere:" data-en="Headunit Replacement:">Fejegység & Rádiócsere:</strong> <span class="lang" data-hu="Gyári rádiók cseréje Android/CarPlay/Bluetooth egységekre." data-en="Upgrading factory radios to modern Android/CarPlay/Bluetooth units.">Gyári rádiók cseréje Android/CarPlay/Bluetooth egységekre.</span></li>
-                        <li><strong class="lang" data-hu="Hangszórócsere & Ajtószigetelés:" data-en="Speakers & Sound Deadening:">Hangszórócsere & Ajtószigetelés:</strong> <span class="lang" data-hu="Prémium komponens szettek és ajtórezgéscsillapítás." data-en="Component speaker upgrades with custom mounts and door damping.">Prémium komponens szettek és ajtórezgéscsillapítás.</span></li>
-                        <li><strong class="lang" data-hu="Erősítő & Mélyláda bekötés:" data-en="Amplifiers & Subwoofers:">Erősítő & Mélyláda bekötés:</strong> <span class="lang" data-hu="Táp- és RCA kábelezés kiépítése, mélyládák szakszerű beszerelése." data-en="Power & RCA cabling wiring, fuse protection, amplifier installation.">Táp- és RCA kábelezés kiépítése, mélyládák szakszerű beszerelése.</span></li>
-                        <li><strong class="lang" data-hu="Zajcsillapítás & Akusztika:" data-en="Acoustic Deadening:">Zajcsillapítás & Akusztika:</strong> <span class="lang" data-hu="Ajtók és csomagtér szigetelése rezgéscsillapító anyagokkal." data-en="Applying soundproofing materials for quieter cabin and better bass.">Ajtók és csomagtér szigetelése rezgéscsillapító anyagokkal.</span></li>
+                        <li><strong class="lang" data-hu="Ajtószigetelés & Csillapítás:" data-en="Door Soundproofing:">Ajtószigetelés & Csillapítás:</strong> <span class="lang" data-hu="Rezgéscsillapító lapok és zajszigetelés felvitele." data-en="Butyl damping mats for silent cabin and tight bass.">Rezgéscsillapító lapok és zajszigetelés felvitele.</span></li>
+                        <li><strong class="lang" data-hu="Fejegység & Android CarPlay:" data-en="Head Unit Upgrades:">Fejegység & Android CarPlay:</strong> <span class="lang" data-hu="Kormányvezérlés megőrzéssel, szakszerű beépítés." data-en="Retaining steering controls with seamless integration.">Kormányvezérlés megőrzéssel, szakszerű beépítés.</span></li>
+                        <li><strong class="lang" data-hu="Erősítő & Mélyláda bekötés:" data-en="Amplifier & Subwoofer:">Erősítő & Mélyláda bekötés:</strong> <span class="lang" data-hu="Biztosított tápkábelezés és zajmentes jelvezetés." data-en="Fused power cabling and noise-free signal path.">Biztosított tápkábelezés és zajmentes jelvezetés.</span></li>
                     </ul>
                 </div>
             </div>
 
             <!-- 3. Weboldalkészítés -->
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés és Fejlesztés">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés">
                 <div class="card-content">
-                    <h3 class="lang" data-hu="Weboldalkészítés & Web" data-en="Web Design & Development">Weboldalkészítés & Web</h3>
+                    <div class="card-icon-header">
+                        <div class="card-icon">🌐</div>
+                        <h3 class="lang" data-hu="Weboldalkészítés & Web" data-en="Web Design & Coding">Weboldalkészítés & Web</h3>
+                    </div>
                     <p class="card-intro lang" 
-                       data-hu="Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére."
-                       data-en="Modern, fast, and mobile-responsive websites designed for small and medium businesses.">
-                        Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére.
+                       data-hu="Szupergyors, reszponzív és modern céges bemutatkozó weboldalak."
+                       data-en="Ultra-fast, mobile-responsive, and modern business websites.">
+                        Szupergyors, reszponzív és modern céges bemutatkozó weboldalak.
                     </p>
                     <ul>
-                        <li><strong class="lang" data-hu="Landing Page & Cégoldalak:" data-en="Landing Pages & Business Sites:">Landing Page & Cégoldalak:</strong> <span class="lang" data-hu="Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása." data-en="Custom-coded, high-converting landing pages and portfolio sites.">Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása.</span></li>
-                        <li><strong class="lang" data-hu="Mobilra optimalizált:" data-en="Mobile Responsive:">Mobilra optimalizált:</strong> <span class="lang" data-hu="Garantáltan tökéletes megjelenés minden kijelzőméreten." data-en="Perfect layout and performance across all smartphones and tablets.">Garantáltan tökéletes megjelenés minden kijelzőméreten.</span></li>
-                        <li><strong class="lang" data-hu="Alapvető SEO:" data-en="Technical SEO:">Alapvető SEO:</strong> <span class="lang" data-hu="Technikai keresőoptimalizálás a jó Google helyezésekért." data-en="Built-in speed optimization and clean code for Google search ranking.">Technikai keresőoptimalizálás a jó Google helyezésekért.</span></li>
+                        <li><strong class="lang" data-hu="Landing Page & Cégoldalak:" data-en="Landing Pages:">Landing Page & Cégoldalak:</strong> <span class="lang" data-hu="Célratörő dizájn és ügyfélszerző struktúra." data-en="High-converting clean layouts.">Célratörő dizájn és ügyfélszerző struktúra.</span></li>
+                        <li><strong class="lang" data-hu="Mobil- és Technikai SEO:" data-en="Mobile & Tech SEO:">Mobil- és Technikai SEO:</strong> <span class="lang" data-hu="Gyors betöltés és tökéletes megjelenés mobilon." data-en="Lightning-fast page speeds on smartphones.">Gyors betöltés és tökéletes megjelenés mobilon.</span></li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 4. LabVIEW & Adatgyűjtés -->
+            <!-- 4. LabVIEW & Automatizálás -->
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="LabVIEW Tesztautomatizálás">
                 <div class="card-content">
-                    <h3 class="lang" data-hu="LabVIEW & Adatgyűjtés" data-en="LabVIEW & Data Acquisition">LabVIEW & Adatgyűjtés</h3>
+                    <div class="card-icon-header">
+                        <div class="card-icon">⚡</div>
+                        <h3 class="lang" data-hu="LabVIEW & Adatgyűjtés" data-en="LabVIEW & DAQ">LabVIEW & Adatgyűjtés</h3>
+                    </div>
                     <p class="card-intro lang" 
-                       data-hu="Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben."
-                       data-en="Development of custom automated measurement and test software for industrial applications.">
-                        Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben.
+                       data-hu="Egyedi mérőszoftverek és automatizált tesztrendszerek fejlesztése."
+                       data-en="Developing custom measurement software and automated testing rigs.">
+                        Egyedi mérőszoftverek és automatizált tesztrendszerek fejlesztése.
                     </p>
                     <ul>
-                        <li><strong class="lang" data-hu="Műszerillesztés:" data-en="Instrument Control:">Műszerillesztés:</strong> <span class="lang" data-hu="DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet)." data-en="Integrating DAQ hardware and benchtop instruments (GPIB, RS232, LAN).">DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet).</span></li>
-                        <li><strong class="lang" data-hu="Automata tesztszekvenciák:" data-en="Automated Sequences:">Automata tesztszekvenciák:</strong> <span class="lang" data-hu="Gyártósori és laboratóriumi mérési folyamatok automatizálása." data-en="End-of-line functional testing and automated laboratory measurements.">Gyártósori és laboratóriumi mérési folyamatok automatizálása.</span></li>
-                        <li><strong class="lang" data-hu="Egyedi GUI & Riportok:" data-en="Custom GUI & Reports:">Egyedi GUI & Riportok:</strong> <span class="lang" data-hu="Letisztult kezelőfelületek és mérési adatok mentése." data-en="User-friendly control interfaces, real-time plotting, and data logging.">Letisztult kezelőfelületek és mérési adatok mentése.</span></li>
+                        <li><strong class="lang" data-hu="Műszerillesztés (DAQ):" data-en="Instrument Control:">Műszerillesztés (DAQ):</strong> <span class="lang" data-hu="GPIB, USB, RS232 és Ethernet eszközvezérlés." data-en="GPIB, USB, RS232 and Ethernet hardware interfacing.">GPIB, USB, RS232 és Ethernet eszközvezérlés.</span></li>
+                        <li><strong class="lang" data-hu="Gyártósori tesztszekvenciák:" data-en="End-of-line Testing:">Gyártósori tesztszekvenciák:</strong> <span class="lang" data-hu="Automata jegyzőkönyvezés és adatmentés." data-en="Automated test reports and data logging.">Automata jegyzőkönyvezés és adatmentés.</span></li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- 5. Műszaki Vizsgálat -->
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Műszaki Vizsgálat és Elektronika">
-                <div class="card-content">
-                    <h3 class="lang" data-hu="Műszaki Vizsgálat & Mérés" data-en="Electronics & Testing">Műszaki Vizsgálat & Mérés</h3>
-                    <p class="card-intro lang" 
-                       data-hu="Elektronikai berendezések, áramkörök és modulok műszeres bevizsgálása és hibadiagnosztikája."
-                       data-en="Benchtop testing, component-level troubleshooting, and evaluation of electronic circuits.">
-                        Elektronikai berendezések, áramkörök és modulok műszeres bevizsgálása és hibadiagnosztikája.
+    <!-- ELŐTTE / UTÁNA KÉPCSÚSZKA SZEKCIÓ -->
+    <div class="container" id="elotte-utana">
+        <h2 class="section-title lang" data-hu="Látható Minőség: Előtte / Utána" data-en="Visible Quality: Before / After">Látható Minőség: Előtte / Utána</h2>
+        <p class="section-subtitle lang" data-hu="Húzza a csúszkát az átalakulás megtekintéséhez!" data-en="Drag the slider to see the transformation!">Húzza a csúszkát az átalakulás megtekintéséhez!</p>
+
+        <div class="ba-section">
+            <div class="ba-grid">
+                <div>
+                    <h3 style="font-size: 1.6rem; margin-bottom: 15px; color: var(--accent-blue);" class="lang" data-hu="Káosz helyett Mérnöki Rend" data-en="From Chaos to Engineering Order">Káosz helyett Mérnöki Rend</h3>
+                    <p class="lang" 
+                       data-hu="Legyen szó elhanyagolt, poros PC hűtésről vagy gyári, lemezzörgős autóajtóról – a szakszerű beavatkozás után a különbség zongorázható."
+                       data-en="Whether it's an overheating dusty PC or an uninsulated, rattling car door – the post-service difference is night and day.">
+                        Legyen szó elhanyagolt, poros PC hűtésről vagy gyári, lemezzörgős autóajtóról – a szakszerű beavatkozás után a különbség zongorázható.
                     </p>
-                    <ul>
-                        <li><strong class="lang" data-hu="Funkcionális mérések:" data-en="Functional Testing:">Funkcionális mérések:</strong> <span class="lang" data-hu="Áramköri lapok és berendezések paramétereinek ellenőrzése." data-en="Validating circuit performance, signal integrity, and supply parameters.">Áramköri lapok és berendezések paramétereinek ellenőrzése.</span></li>
-                        <li><strong class="lang" data-hu="Áramköri hibakeresés:" data-en="Troubleshooting:">Áramköri hibakeresés:</strong> <span class="lang" data-hu="Hibalokalizálás és diagnosztika műszeres mérésekkel." data-en="Component-level fault isolation using oscilloscopes and meters.">Hibalokalizálás és diagnosztika műszeres mérésekkel.</span></li>
-                        <li><strong class="lang" data-hu="Jegyzőkönyvezés:" data-en="Documentation:">Jegyzőkönyvezés:</strong> <span class="lang" data-hu="Átlátható műszaki dokumentációk és mérési jegyzőkönyvek." data-en="Detailed engineering reports and measurement documentation.">Átlátható műszaki dokumentációk és mérési jegyzőkönyvek.</span></li>
+                    <ul style="list-style: none; margin-top: 20px;">
+                        <li style="margin-bottom: 10px; color: var(--text-muted);" class="lang" data-hu="🔹 **Alacsonyabb hőmérséklet & csendesebb működés** PC-knél" data-en="🔹 **Lower temperatures & quiet operation** on PCs">🔹 <strong>Alacsonyabb hőmérséklet & csendesebb működés</strong> PC-knél</li>
+                        <li style="margin-bottom: 10px; color: var(--text-muted);" class="lang" data-hu="🔹 **Feszes, telt basszusok & rezgésmentes kabin** az autóban" data-en="🔹 **Tight bass & vibration-free cabin** in vehicles">🔹 <strong>Feszes, telt basszusok & rezgésmentes kabin</strong> az autóban</li>
+                        <li style="color: var(--text-muted);" class="lang" data-hu="🔹 **Tiszta kábelezés és tartós, profi rögzítések**" data-en="🔹 **Clean cabling & durable mounting**">🔹 <strong>Tiszta kábelezés és tartós, profi rögzítések</strong></li>
                     </ul>
+                </div>
+
+                <!-- Interaktív Csúszka -->
+                <div class="ba-slider-container" id="baSlider">
+                    <div class="ba-image ba-before"></div>
+                    <div class="ba-image ba-after" id="baAfterImage"></div>
+                    <span class="ba-label ba-label-before lang" data-hu="ELŐTTE" data-en="BEFORE">ELŐTTE</span>
+                    <span class="ba-label ba-label-after lang" data-hu="UTÁNA (Profi Szerelés)" data-en="AFTER (Pro Install)">UTÁNA (Profi Szerelés)</span>
+                    <div class="ba-handle" id="baHandle">
+                        <div class="ba-handle-button">↔</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERAKTÍV ÁRAJÁNLAT-KALKULÁTOR SZEKCIÓ -->
+    <div class="container" id="kalkulator">
+        <h2 class="section-title lang" data-hu="Interaktív Árajánlat-Kalkulátor" data-en="Interactive Cost Calculator">Interaktív Árajánlat-Kalkulátor</h2>
+        <p class="section-subtitle lang" data-hu="Számolja ki a várható munkadíjat néhány kattintással!" data-en="Calculate your estimated project cost in a few clicks!">Számolja ki a várható munkadíjat néhány kattintással!</p>
+
+        <div class="calc-box">
+            <div class="calc-grid">
+                <div>
+                    <!-- 1. Kategória választás -->
+                    <div class="calc-group">
+                        <label class="lang" data-hu="1. Válasszon szolgáltatási kategóriát:" data-en="1. Choose Service Category:">1. Válasszon szolgáltatási kategóriát:</label>
+                        <div class="calc-options">
+                            <div class="calc-option-btn active" onclick="selectCategory('pc', this)">
+                                <span>💻</span>
+                                <span class="lang" data-hu="PC / Laptop Szerviz" data-en="PC / Laptop Service">PC / Laptop Szerviz</span>
+                            </div>
+                            <div class="calc-option-btn" onclick="selectCategory('audio', this)">
+                                <span>🔊</span>
+                                <span class="lang" data-hu="Autóhifi & Szigetelés" data-en="Car Audio & Insulation">Autóhifi & Szigetelés</span>
+                            </div>
+                            <div class="calc-option-btn" onclick="selectCategory('web', this)">
+                                <span>🌐</span>
+                                <span class="lang" data-hu="Weboldalkészítés" data-en="Web Development">Weboldalkészítés</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Options (PC) -->
+                    <div class="calc-group" id="opts-pc">
+                        <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
+                        <div class="calc-checkboxes">
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="12000" onchange="calculatePrice()" checked>
+                                <span class="lang" data-hu="Hardveres pormentesítés + Prémium újrapasztázás (~12 000 Ft)" data-en="Hardware dust removal + Thermal repasting (~12 000 HUF)">Hardveres pormentesítés + Prémium újrapasztázás (~12 000 Ft)</span>
+                            </label>
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="8000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="SSD / RAM bővítés és adatátmentés (~8 000 Ft)" data-en="SSD / RAM upgrade & Data migration (~8 000 HUF)">SSD / RAM bővítés és adatátmentés (~8 000 Ft)</span>
+                            </label>
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="10000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="Tiszta Windows 11 / Driver telepítés (~10 000 Ft)" data-en="Clean Windows 11 & Driver setup (~10 000 HUF)">Tiszta Windows 11 / Driver telepítés (~10 000 Ft)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Options (Audio) -->
+                    <div class="calc-group" id="opts-audio" style="display: none;">
+                        <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
+                        <div class="calc-checkboxes">
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="25000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="Első ajtópár Silent Coat butyl rezgéscsillapítása (~25 000 Ft)" data-en="Front doors Silent Coat soundproofing (~25 000 HUF)">Első ajtópár Silent Coat butyl rezgéscsillapítása (~25 000 Ft)</span>
+                            </label>
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="18000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="Komponens hangszórószett beépítés kiemelőgyűrűvel (~18 000 Ft)" data-en="Component speaker installation with custom mounts (~18 000 HUF)">Komponens hangszórószett beépítés kiemelőgyűrűvel (~18 000 Ft)</span>
+                            </label>
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="22000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="Erősítő / Mélyláda táp- és jeltápkábelezés (~22 000 Ft)" data-en="Amplifier & Subwoofer power cabling (~22 000 HUF)">Erősítő / Mélyláda táp- és jeltápkábelezés (~22 000 Ft)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Options (Web) -->
+                    <div class="calc-group" id="opts-web" style="display: none;">
+                        <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
+                        <div class="calc-checkboxes">
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="65000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="Reszponzív, egyedi Landing Page / Bemutatkozó oldal (~65 000 Ft)" data-en="Responsive custom Landing Page (~65 000 HUF)">Reszponzív, egyedi Landing Page / Bemutatkozó oldal (~65 000 Ft)</span>
+                            </label>
+                            <label class="calc-checkbox-item">
+                                <input type="checkbox" value="15000" onchange="calculatePrice()">
+                                <span class="lang" data-hu="HU / EN Kétnyelvűsítés beépítése (~15 000 Ft)" data-en="HU / EN Multi-language switcher (~15 000 HUF)">HU / EN Kétnyelvűsítés beépítése (~15 000 Ft)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Box -->
+                <div class="calc-result-box">
+                    <div>
+                        <span class="lang" data-hu="VÁRHATÓ MUNKADÍJ BECSLÉS:" data-en="ESTIMATED SERVICE COST:" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px;">VÁRHATÓ MUNKADÍJ BECSLÉS:</span>
+                        <div class="calc-result-price" id="totalPrice">12 000 Ft</div>
+                        <p class="calc-result-details lang" 
+                           data-hu="A kalkuláció tájékoztató jellegű becslés. Pontos árajánlathoz vegye fel velünk a kapcsolatot!"
+                           data-en="This calculation is an estimate. Contact us for an exact quotation!">
+                            A kalkuláció tájékoztató jellegű becslés. Pontos árajánlathoz vegye fel velünk a kapcsolatot!
+                        </p>
+                    </div>
+                    <a href="#kapcsolat" class="btn lang" data-hu="Pontos Ajánlatot Kérek" data-en="Request Exact Quote">Pontos Ajánlatot Kérek</a>
                 </div>
             </div>
         </div>
@@ -494,85 +922,63 @@
 
     <!-- REFERENCIÁK SZEKCIÓ -->
     <div class="container" id="referenciak">
-        <h2 class="section-title lang" data-hu="Kiemelt Referenciák & Munkák" data-en="Featured Projects">Kiemelt Referenciák & Munkák</h2>
-        
+        <h2 class="section-title lang" data-hu="Kiemelt Referenciák" data-en="Featured Projects">Kiemelt Referenciák</h2>
+        <p class="section-subtitle lang" data-hu="Néhány korábbi munkánk és megvalósított projektünk" data-en="A selection of our recent projects and implementations">Néhány korábbi munkánk és megvalósított projektünk</p>
+
         <div class="grid">
-            <!-- 1. Autóhifi Referencia -->
             <div class="card ref-card">
-                <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangszigetelés">
+                <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi Referencia">
                 <div class="card-content">
                     <span class="tag">Autóhifi / Akusztika</span>
-                    <h3 class="lang" data-hu="Komplett Autóhifi & Ajtószigetelés" data-en="Car Audio & Sound Deadening">Komplett Autóhifi & Ajtószigetelés</h3>
+                    <h3 class="lang" data-hu="Autóhifi & Ajtószigetelés" data-en="Car Audio & Soundproofing">Autóhifi & Ajtószigetelés</h3>
                     <p class="lang" 
-                       data-hu="Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése."
-                       data-en="Upgrading factory speakers to high-end component audio, applying butyl deadening mats, and wiring amplifier with subwoofer.">
-                        Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése.
+                       data-hu="Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése és erősítő bekötés."
+                       data-en="Upgrading factory audio to high-end component set with Silent Coat sound deadening and amplifier wiring.">
+                        Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése és erősítő bekötés.
                     </p>
-                    <div class="ref-tech">Silent Coat • Amplifier Cabling • Custom Mounts</div>
+                    <div class="ref-tech">Silent Coat • Custom Mounts • Cabling</div>
                 </div>
             </div>
 
-            <!-- 2. LabVIEW Referencia -->
             <div class="card ref-card">
-                <img src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=800&q=80" alt="Ipari Mérőrendszer Fejlesztés">
+                <img src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=800&q=80" alt="LabVIEW Referencia">
                 <div class="card-content">
                     <span class="tag">LabVIEW / Automatizálás</span>
-                    <h3 class="lang" data-hu="Automata Tesztpad Fejlesztés" data-en="Automated Test Rig Development">Automata Tesztpad Fejlesztés</h3>
+                    <h3 class="lang" data-hu="Automata Tesztpad Fejlesztés" data-en="Automated Test Rig">Automata Tesztpad Fejlesztés</h3>
                     <p class="lang" 
-                       data-hu="Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez."
-                       data-en="Custom software and DAQ system engineered for end-of-line functional testing of industrial electronic assemblies.">
-                        Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez.
+                       data-hu="Egyedi mérőszoftver és adatgyűjtő rendszer ipari elektronikai modulok sorozatgyártási teszteléséhez."
+                       data-en="Custom software and DAQ system engineered for end-of-line functional testing of electronic modules.">
+                        Egyedi mérőszoftver és adatgyűjtő rendszer ipari elektronikai modulok sorozatgyártási teszteléséhez.
                     </p>
-                    <div class="ref-tech">LabVIEW • NI DAQ • RS232 • Excel Export</div>
+                    <div class="ref-tech">LabVIEW • NI DAQ • RS232</div>
                 </div>
             </div>
 
-            <!-- 3. IT Szerviz Referencia -->
             <div class="card ref-card">
-                <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" alt="IT Szerviz és Karbantartás">
+                <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" alt="IT Szerviz Referencia">
                 <div class="card-content">
                     <span class="tag">IT Szerviz / Hardver</span>
-                    <h3 class="lang" data-hu="Céges Laptop Flotta Felújítás" data-en="Corporate Laptop Fleet Maintenance">Céges Laptop Flotta Felújítás</h3>
+                    <h3 class="lang" data-hu="Céges Laptop Flotta Felújítás" data-en="Laptop Fleet Maintenance">Céges Laptop Flotta Felújítás</h3>
                     <p class="lang" 
-                       data-hu="15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében."
-                       data-en="Hardware maintenance, thermal repasting, and SSD upgrades across 15 workstation laptops for reliable performance.">
-                        15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében.
+                       data-hu="15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése."
+                       data-en="Hardware maintenance, thermal repasting, and SSD upgrades across 15 workstation laptops.">
+                        15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése.
                     </p>
-                    <div class="ref-tech">SSD & RAM Upgrade • Thermal Repaste • Win11</div>
-                </div>
-            </div>
-
-            <!-- 4. Weboldal Referencia -->
-            <div class="card ref-card">
-                <img src="https://images.unsplash.com/photo-1467238307002-480ffdd960d3?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés">
-                <div class="card-content">
-                    <span class="tag">Weboldal / Dizájn</span>
-                    <h3 class="lang" data-hu="Helyi Vállalkozás Landing Page" data-en="Business Landing Page">Helyi Vállalkozás Landing Page</h3>
-                    <p class="lang" 
-                       data-hu="Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval."
-                       data-en="Ultra-fast, responsive landing page with contact integration, clean styling, and SEO-friendly markup.">
-                        Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval.
-                    </p>
-                    <div class="ref-tech">HTML5 • CSS3 • JavaScript • SEO</div>
+                    <div class="ref-tech">SSD Upgrade • Thermal Repaste • Win11</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Rólam / Mérnöki Szemlélet -->
+    <!-- Rólam -->
     <div class="container" id="rolam">
         <div class="about-box">
             <div class="about-text">
                 <h3 class="lang" data-hu="Precizitás és Mérnöki Szemlélet" data-en="Engineering Approach & Precision">Precizitás és Mérnöki Szemlélet</h3>
                 <p class="lang" 
-                   data-hu="A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom,hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam."
-                   data-en="GM Tech is backed by years of professional test engineering and electronics experience. My mission is to deliver high-quality, stable, and well-documented technical solutions.">
-                    A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam.
-                </p>
-                <p class="lang" 
-                   data-hu="Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek."
-                   data-en="Whether it is custom car audio installation, PC hardware repasting & speedup, automated LabVIEW software, or modern responsive web pages – every task is handled with thorough planning and fast turnaround times.">
-                    Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek.
+                   data-hu="A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam."
+                   data-en="GM Tech is backed by years of test engineering experience. My mission is to deliver high-quality, reliable, and well-documented engineering and digital solutions.">
+                    A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam.
                 </p>
             </div>
             <div class="about-img">
@@ -585,9 +991,9 @@
     <section class="contact" id="kapcsolat">
         <h2 class="section-title lang" data-hu="Kapcsolatfelvétel" data-en="Contact Us">Kapcsolatfelvétel</h2>
         <p class="lang" 
-           data-hu="Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!"
-           data-en="Get in touch for car audio installations, computer repairs, web design, or custom software solutions!">
-            Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!
+           data-hu="Keressen bizalommal árajánlatért vagy műszaki konzultációért!"
+           data-en="Get in touch for quotations or technical consultations!">
+            Keressen bizalommal árajánlatért vagy műszaki konzultációért!
         </p>
         
         <div class="contact-info">
@@ -610,8 +1016,9 @@
         <p><strong>GM Tech</strong> – Galanics Máté e.v. | <span class="lang" data-hu="Minden jog fenntartva." data-en="All rights reserved.">Minden jog fenntartva.</span></p>
     </footer>
 
-    <!-- Nyelvváltó Script -->
+    <!-- INTERAKTÍV SCRIPTEK -->
     <script>
+        /* 1. Nyelvváltó */
         let currentLang = localStorage.getItem('gmtech_lang') || 'hu';
 
         function applyLanguage(lang) {
@@ -637,8 +1044,64 @@
             applyLanguage(currentLang === 'hu' ? 'en' : 'hu');
         }
 
+        /* 2. Before / After Image Slider */
+        const sliderContainer = document.getElementById('baSlider');
+        const afterImage = document.getElementById('baAfterImage');
+        const handle = document.getElementById('baHandle');
+        let isDragging = false;
+
+        function setSliderPosition(x) {
+            const rect = sliderContainer.getBoundingClientRect();
+            let offsetX = x - rect.left;
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            const percentage = (offsetX / rect.width) * 100;
+
+            afterImage.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+            handle.style.left = `${percentage}%`;
+        }
+
+        sliderContainer.addEventListener('mousedown', (e) => { isDragging = true; setSliderPosition(e.clientX); });
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', (e) => { if (isDragging) setSliderPosition(e.clientX); });
+
+        sliderContainer.addEventListener('touchstart', (e) => { isDragging = true; setSliderPosition(e.touches[0].clientX); });
+        window.addEventListener('touchend', () => isDragging = false);
+        window.addEventListener('touchmove', (e) => { if (isDragging) setSliderPosition(e.touches[0].clientX); });
+
+        // Initialize slider at 50%
+        setSliderPosition(sliderContainer.getBoundingClientRect().left + sliderContainer.offsetWidth / 2);
+
+        /* 3. Árajánlat Kalkulátor */
+        let currentCategory = 'pc';
+
+        function selectCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.calc-option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.getElementById('opts-pc').style.display = (cat === 'pc') ? 'block' : 'none';
+            document.getElementById('opts-audio').style.display = (cat === 'audio') ? 'block' : 'none';
+            document.getElementById('opts-web').style.display = (cat === 'web') ? 'block' : 'none';
+
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            let total = 0;
+            const activeGroup = document.getElementById(`opts-${currentCategory}`);
+            const checkboxes = activeGroup.querySelectorAll('input[type="checkbox"]:checked');
+            
+            checkboxes.forEach(cb => {
+                total += parseInt(cb.value);
+            });
+
+            document.getElementById('totalPrice').textContent = total.toLocaleString('hu-HU') + ' Ft';
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             applyLanguage(currentLang);
+            calculatePrice();
         });
     </script>
 </body>
