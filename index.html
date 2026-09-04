@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Tech – Tesztautomatizálás, Műszaki Vizsgálat, IT & Webfejlesztés</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-blue: #00E5FF;
+            --accent-glow: rgba(0, 229, 255, 0.25);
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navigáció */
+        header {
+            background-color: rgba(22, 27, 34, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Hero Szekció */
+        .hero {
+            padding: 100px 5% 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0,229,255,0.08) 0%, rgba(13,17,23,1) 70%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--accent-blue);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+        }
+
+        /* Container & Grid Structure */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-blue);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 22px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+        }
+
+        .card-intro {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .card-content ul {
+            list-style-type: none;
+            margin-top: auto;
+        }
+
+        .card-content ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .card-content ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .card-content ul li strong {
+            color: var(--text-main);
+        }
+
+        /* Referenciák Kártya Stílusok */
+        .ref-card .tag {
+            display: inline-block;
+            background-color: rgba(0, 229, 255, 0.1);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            width: fit-content;
+        }
+
+        .ref-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .ref-tech {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-top: auto;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 10px;
+        }
+
+        /* Mérnöki Szemlélet / Rólam */
+        .about-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1 1 500px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .about-img {
+            flex: 1 1 350px;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            object-fit: cover;
+        }
+
+        /* Kapcsolat & Lábléc */
+        .contact {
+            text-align: center;
+            padding: 60px 5%;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            font-size: 1.1rem;
+        }
+
+        .contact-item strong {
+            color: var(--accent-blue);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 5%;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            header { flex-direction: column; gap: 15px; }
+            nav a { margin: 0 8px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            <svg width="35" height="35" viewBox="0 0 100 100">
+                <path d="M 10 30 L 10 10 L 30 10" fill="none" stroke="#00E5FF" stroke-width="6"/>
+                <path d="M 70 10 L 90 10 L 90 30" fill="none" stroke="#00E5FF" stroke-width="6"/>
+                <path d="M 90 70 L 90 90 L 70 90" fill="none" stroke="#00E5FF" stroke-width="6"/>
+                <path d="M 30 90 L 10 90 L 10 70" fill="none" stroke="#00E5FF" stroke-width="6"/>
+                <path d="M 45 35 L 30 35 C 22 35 20 42 20 55 C 20 68 22 75 30 75 L 45 75 L 45 55 L 35 55" fill="none" stroke="#FFF" stroke-width="6"/>
+                <path d="M 55 75 L 55 35 L 67 55 L 79 35 L 79 75" fill="none" stroke="#00E5FF" stroke-width="6"/>
+            </svg>
+            GM <span>TECH</span>
+        </a>
+        <nav>
+            <a href="#szolgaltatasok">Szolgáltatások</a>
+            <a href="#referenciak">Referenciák</a>
+            <a href="#rolam">Mérnöki Háttér</a>
+            <a href="#kapcsolat">Kapcsolat</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Műszaki Vizsgálat, LabVIEW <span>& Digitális Megoldások</span></h1>
+        <p>LabVIEW alapú méréstechnika, autóhifi és járműelektronika, hardveres PC/laptop karbantartás, valamint vállalkozások számára készült modern weboldalak – mérnöki precizitással.</p>
+        <a href="#kapcsolat" class="btn">Ajánlatkérés / Kapcsolat</a>
+    </section>
+
+    <!-- Szolgáltatások -->
+    <div class="container" id="szolgaltatasok">
+        <h2 class="section-title">Részletes Szolgáltatásaink</h2>
+        
+        <div class="grid">
+            <!-- 1. PC & Laptop Szerviz -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80" alt="Hardveres IT Szerviz">
+                <div class="card-content">
+                    <h3>PC & Laptop Szerviz</h3>
+                    <p class="card-intro">Teljes körű hardveres karbantartás, gyorsítás és szoftveres telepítések magánszemélyeknek és cégeknek.</p>
+                    <ul>
+                        <li><strong>Hardveres tisztítás & Újrapasztázás:</strong> Pormentesítés és prémium hővezető pasztázás a túlmelegedés ellen.</li>
+                        <li><strong>Akkumulátor & Kijelző csere:</strong> Akkumulátorok és sérült kijelzők szakszerű cseréje.</li>
+                        <li><strong>Hardveres bővítés (SSD & RAM):</strong> Lassú rendszerek felgyorsítása SSD-vel és memóriabővítéssel.</li>
+                        <li><strong>Windows & Szoftvertelepítés:</strong> Operációs rendszerek és illesztőprogramok beállítása.</li>
+                        <li><strong>Adatmentés & Helyreállítás:</strong> Meghibásodott rendszerek adatmentése és vírusirtás.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. Autóhifi & Járműelektronika (ÚJ) -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangtechnika">
+                <div class="card-content">
+                    <h3>Autóhifi & Járműelektronika</h3>
+                    <p class="card-intro">Gyári hangrendszerek korszerűsítése, egyedi autóhifi beépítés és szakszerű kábelezés.</p>
+                    <ul>
+                        <li><strong>Fejegység & Rádiócsere:</strong> Gyári rádiók cseréje modern Android/CarPlay/Bluetooth fejegységekre, keretek illesztésével.</li>
+                        <li><strong>Hangszórócsere & Ajtószigetelés:</strong> Gyári hangszórók cseréje prémium komponens szettekre, egyedi kiemelőkeretekkel.</li>
+                        <li><strong>Erősítő & Mélyláda bekötés:</strong> Táp- és RCA kábelezés kiépítése, táp-biztosítékolás, mélyládák és erősítők beépítése.</li>
+                        <li><strong>Zajcsillapítás & Akusztika:</strong> Ajtók és csomagtér szigetelése prémium rezgéscsillapító anyagokkal a tisztább hangzásért.</li>
+                        <li><strong>Egyedi Kiegészítők:</strong> Tolatókamerák, kiegészítő elektronika és igényes vezetékezés gyári színvonalon.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. Weboldalkészítés -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés és Fejlesztés">
+                <div class="card-content">
+                    <h3>Weboldalkészítés & Web</h3>
+                    <p class="card-intro">Modern, villámgyors és mobilbarát bemutatkozó oldalak kis- és középvállalkozások részére.</p>
+                    <ul>
+                        <li><strong>Landing Page & Cégoldalak:</strong> Egyedi, célratörő bemutatkozó oldalak tervezése és kódolása.</li>
+                        <li><strong>Mobilra optimalizált kivitel:</strong> Garantáltan tökéletes megjelenés minden kijelzőméreten.</li>
+                        <li><strong>Alapvető SEO:</strong> Technikai keresőoptimalizálás a jó Google helyezésekért.</li>
+                        <li><strong>Domain & Tárhely ügyintézés:</strong> Regisztráció, tárhely beállítás és e-mail fiókok.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. LabVIEW & Adatgyűjtés -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="LabVIEW Tesztautomatizálás">
+                <div class="card-content">
+                    <h3>LabVIEW & Adatgyűjtés</h3>
+                    <p class="card-intro">Egyedi mérő- és tesztrendszerek szoftveres fejlesztése és automatizálása ipari környezetben.</p>
+                    <ul>
+                        <li><strong>Műszerillesztés & Kommunikáció:</strong> DAQ kártyák és műszerek csatlakoztatása (GPIB, USB, RS232, Ethernet).</li>
+                        <li><strong>Automata tesztszekvenciák:</strong> Gyártósori és laboratóriumi mérési folyamatok automatizálása.</li>
+                        <li><strong>Egyedi GUI:</strong> Letisztult kezelőfelületek és valós idejű adatmegjelenítés.</li>
+                        <li><strong>Adatmentés & Riportok:</strong> Mérési adatok strukturált mentése és jegyzőkönyvezés.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. Műszaki Vizsgálat -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Műszaki Vizsgálat és Elektronika">
+                <div class="card-content">
+                    <h3>Műszaki Vizsgálat & Mérés</h3>
+                    <p class="card-intro">Elektronikai berendezések, áramkörök és modulok műszeres beviszgálása és hibadiagnosztikája.</p>
+                    <ul>
+                        <li><strong>Funkcionális mérések:</strong> Áramköri lapok és berendezések paramétereinek ellenőrzése.</li>
+                        <li><strong>Áramköri hibakeresés:</strong> Hibalokalizálás és diagnosztika műszeres mérésekkel.</li>
+                        <li><strong>Mérési jegyzőkönyvezés:</strong> Átlátható műszaki dokumentációk kiállítása.</li>
+                        <li><strong>Elektronikai tanácsadás:</strong> Tesztelési folyamatok hatékonyságának növelése.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REFERENCIÁK SZEKCIÓ -->
+    <div class="container" id="referenciak">
+        <h2 class="section-title">Kiemelt Referenciák & Munkák</h2>
+        
+        <div class="grid">
+            <!-- 1. Autóhifi Referencia (ÚJ) -->
+            <div class="card ref-card">
+                <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Autóhifi és Hangszigetelés">
+                <div class="card-content">
+                    <span class="tag">Autóhifi / Akusztika</span>
+                    <h3>Komplett Autóhifi & Ajtószigetelés</h3>
+                    <p>Gyári hangrendszer cseréje prémium komponens szettre, ajtórezgéscsillapító lapok felhelyezése, valamint erősítő és mélyláda szakszerű kábelezése.</p>
+                    <div class="ref-tech">Silent Coat Szigetelés • Erősítő Kábelezés • Kiemelőkeret</div>
+                </div>
+            </div>
+
+            <!-- 2. LabVIEW Referencia -->
+            <div class="card ref-card">
+                <img src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=800&q=80" alt="Ipari Mérőrendszer Fejlesztés">
+                <div class="card-content">
+                    <span class="tag">LabVIEW / Automatizálás</span>
+                    <h3>Automata Tesztpad Fejlesztés</h3>
+                    <p>Egyedi mérőszoftver és adatgyűjtő rendszer kidolgozása ipari elektronikai modulok sorozatgyártási funkcionális teszteléséhez.</p>
+                    <div class="ref-tech">LabVIEW • NI DAQ • RS232 • Excel Export</div>
+                </div>
+            </div>
+
+            <!-- 3. IT Szerviz Referencia -->
+            <div class="card ref-card">
+                <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" alt="IT Szerviz és Karbantartás">
+                <div class="card-content">
+                    <span class="tag">IT Szerviz / Hardver</span>
+                    <h3>Céges Laptop Flotta Felújítás</h3>
+                    <p>15 darab munkaállomás komplett hardveres tisztítása, hűtőpasztázása és SSD bővítése a folyamatos, gyors munkavégzés érdekében.</p>
+                    <div class="ref-tech">SSD & RAM Bővítés • Tisztítás • Win11 Telepítés</div>
+                </div>
+            </div>
+
+            <!-- 4. Weboldal Referencia -->
+            <div class="card ref-card">
+                <img src="https://images.unsplash.com/photo-1467238307002-480ffdd960d3?auto=format&fit=crop&w=800&q=80" alt="Weboldalkészítés">
+                <div class="card-content">
+                    <span class="tag">Weboldal / Dizájn</span>
+                    <h3>Helyi Vállalkozás Landing Page</h3>
+                    <p>Reszponzív, szupergyors és modern bemutatkozó weboldal készítése beépített ajánlatkérő űrlappal és Google Térkép integrációval.</p>
+                    <div class="ref-tech">HTML5 • CSS3 • JavaScript • SEO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rólam / Mérnöki Szemlélet -->
+    <div class="container" id="rolam">
+        <div class="about-box">
+            <div class="about-text">
+                <h3>Precizitás és Mérnöki Szemlélet</h3>
+                <p>A GM Tech mögött többéves tesztmérnöki és elektronikai technikusi tapasztalat áll. Célom, hogy a megrendelőim számára a legmagasabb minőségű, stabil és jól dokumentált műszaki és digitális megoldásokat nyújtsam.</p>
+                <p>Legyen szó autóhifi beépítésről és ajtószigetelésről, lassú céges laptopok felújításáról, egyedi LabVIEW mérőszoftverek megírásáról vagy vállalkozások modern weboldalairól – minden feladatot alapos tervezéssel, precíz kivitelezéssel és gyors átfutási idővel teljesítek.</p>
+            </div>
+            <div class="about-img">
+                <img src="profile.jpg" alt="Galanics Máté - GM Tech">
+            </div>
+        </div>
+    </div>
+
+    <!-- Kapcsolat -->
+    <section class="contact" id="kapcsolat">
+        <h2 class="section-title">Kapcsolatfelvétel</h2>
+        <p>Autóhifi szereléssel, PC/laptop szervizzel, weboldalkészítéssel vagy szoftverfejlesztéssel kapcsolatban keressen bizalommal!</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <strong>E-mail</strong>
+                <span>info@gmtech.hu</span>
+            </div>
+            <div class="contact-item">
+                <strong>Helyszín</strong>
+                <span>Vác és Börzsöny régió / Remote</span>
+            </div>
+            <div class="contact-item">
+                <strong>Rendelkezésre állás</strong>
+                <span>Rugalmas idősávban</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>GM Tech</strong> – Galanics Máté e.v. | Adószám: [Adószámod] | Minden jog fenntartva.</p>
+    </footer>
+
+</body>
+</html>
