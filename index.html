@@ -515,6 +515,32 @@
             margin-bottom: 20px;
         }
 
+        /* GDPR Checkbox stílus a kalkulátorban */
+        .gdpr-checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .gdpr-checkbox-wrapper input {
+            margin-top: 3px;
+            accent-color: var(--accent-blue);
+        }
+
+        .gdpr-checkbox-wrapper a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .gdpr-checkbox-wrapper a:hover {
+            text-decoration: underline;
+        }
+
         /* Referenciák & Load More Gomb */
         .ref-card .tag {
             display: inline-block;
@@ -721,7 +747,71 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
+            background-color: var(--bg-color);
         }
+
+        .footer-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal popup styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 650px;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: var(--text-main);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+            position: relative;
+            text-align: left;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-blue);
+        }
+
+        .modal h3 { color: var(--accent-blue); margin-bottom: 15px; }
+        .modal h4 { color: var(--text-main); margin-top: 15px; margin-bottom: 5px; }
+        .modal p, .modal li { font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); }
+        .modal ul { margin-left: 20px; margin-bottom: 10px; }
 
         /* Mobil nézet */
         @media (max-width: 768px) {
@@ -1165,7 +1255,17 @@
                             A kalkuláció tájékoztató jellegű becslés. Pontos árajánlathoz vegye fel velünk a kapcsolatot!
                         </p>
                     </div>
-                    <a id="calcSendBtn" href="mailto:info@gmtech.hu" class="btn lang" data-hu="Ajánlatkérés Küldése E-mailben" data-en="Send Request via Email">Ajánlatkérés Küldése E-mailben</a>
+
+                    <!-- GDPR Elfogadó Checkbox -->
+                    <div class="gdpr-checkbox-wrapper">
+                        <input type="checkbox" id="calcGdprCheck" onchange="toggleCalcBtn()">
+                        <label for="calcGdprCheck">
+                            <span class="lang" data-hu="Elfogadom az " data-en="I accept the ">Elfogadom az </span>
+                            <a onclick="openModal('privacyModal')" class="lang" data-hu="Adatkezelési Tájékoztatót" data-en="Privacy Policy">Adatkezelési Tájékoztatót</a>. *
+                        </label>
+                    </div>
+
+                    <button id="calcSendBtn" onclick="handleCalcSend()" class="btn lang" style="opacity: 0.5; cursor: not-allowed;" data-hu="Ajánlatkérés Küldése E-mailben" data-en="Send Request via Email">Ajánlatkérés Küldése E-mailben</button>
                 </div>
             </div>
         </div>
@@ -1247,9 +1347,73 @@
         </div>
     </section>
 
+    <!-- Lábléc & Jogi Linkek -->
     <footer>
         <p><strong>GM Tech</strong> – Galanics Máté e.v. | <span class="lang" data-hu="Minden jog fenntartva." data-en="All rights reserved.">Minden jog fenntartva.</span></p>
+        <div class="footer-links">
+            <a onclick="openModal('impresszumModal')" class="lang" data-hu="Impresszum & Cégadatok" data-en="Imprint & Legal Data">Impresszum & Cégadatok</a>
+            <span>|</span>
+            <a onclick="openModal('privacyModal')" class="lang" data-hu="Adatkezelési Tájékoztató" data-en="Privacy Policy">Adatkezelési Tájékoztató</a>
+        </div>
     </footer>
+
+    <!-- 1. IMPRESSZUM POPUP -->
+    <div id="impresszumModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('impresszumModal')">&times;</span>
+            <h3 class="lang" data-hu="Impresszum & Cégadatok" data-en="Imprint & Legal Data">Impresszum & Cégadatok</h3>
+            <p>
+                <strong>Szolgáltató neve:</strong> Galanics Máté e.v.<br>
+                <strong>Székhely:</strong> 2642 Nógrád, Mikszáth utca 35.<br>
+                <strong>Adószám:</strong> 92305812-1-32<br>
+                <strong>EVNY nyilvántartási szám:</strong> 62711850<br>
+                <strong>Nyilvántartó hatóság:</strong> NAV (Nógrád Vármegyei Adó- és Vámigazgatósága)<br>
+                <strong>E-mail elérhetőség:</strong> info@gmtech.hu<br><br>
+                <strong>Tárhelyszolgáltató adatai:</strong><br>
+                GitHub Inc.<br>
+                Cím: 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA<br>
+                E-mail: support@github.com<br>
+                Weboldal: https://pages.github.com
+            </p>
+        </div>
+    </div>
+
+    <!-- 2. ADATKEZELÉSI TÁJÉKOZTATÓ POPUP -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
+            <h3 class="lang" data-hu="Adatkezelési Tájékoztató" data-en="Privacy Policy">Adatkezelési Tájékoztató</h3>
+            
+            <h4>1. Az Adatkezelő adatai</h4>
+            <p>
+                <strong>Név:</strong> Galanics Máté e.v.<br>
+                <strong>Székhely:</strong> 2642 Nógrád, Mikszáth utca 35.<br>
+                <strong>Adószám:</strong> 92305812-1-32<br>
+                <strong>E-mail:</strong> info@gmtech.hu
+            </p>
+
+            <h4>2. A kezelt adatok köre és célja</h4>
+            <p>A weboldalon található kapcsolatfelvételi és árajánlatkérő funkciók használata során az alábbi adatokat kezeljük:</p>
+            <ul>
+                <li><strong>Név:</strong> A kapcsolatfelvételt kezdeményező azonosításához.</li>
+                <li><strong>E-mail cím:</strong> A válaszadás és az ajánlatkérés lebonyolítása céljából.</li>
+                <li><strong>Műszaki igények:</strong> Az ajánlatadáshoz szükséges adatok.</li>
+            </ul>
+
+            <h4>3. Az adatkezelés jogalapja</h4>
+            <p>Az adatkezelés jogalapja az Ön önkéntes hozzájárulása (GDPR 6. cikk (1) bekezdés a) pont), amelyet az ajánakérés indítása előtt a jelölőnégyzet bepipálásával ad meg.</p>
+
+            <h4>4. Az adatkezelés időtartama</h4>
+            <p>A megadott adatokat a megkeresés megválaszolásáig, illetve az esetleges üzleti kapcsolat/szerződés lezárásáig tároljuk. A hozzájárulást Ön bármikor visszavonhatja az info@gmtech.hu e-mail címre küldött levelében.</p>
+
+            <h4>5. Az érintettek jogai</h4>
+            <p>Ön bármikor kérelmezheti az Adatkezelőtől az Önre vonatkozó személyes adatokhoz való hozzáférést, azok helyesbítését, törlését vagy kezelésének korlátozását, valamint tiltakozhat a személyes adatok kezelése ellen.</p>
+
+            <h4>6. Jogorvoslati lehetőség</h4>
+            <p>Amennyiben úgy érzi, hogy az adatkezelés során sérelem érte, panasszal fordulhat a Nemzeti Adatvédelmi és Információszabadság Hatóhoz (NAIH):</p>
+            <p>Cím: 1055 Budapest, Falk Miksa utca 9-11. | Web: https://naih.hu</p>
+        </div>
+    </div>
 
     <!-- INTERAKTÍV SCRIPTEK -->
     <script>
@@ -1336,6 +1500,7 @@
 
         /* 4. Árajánlat Kalkulátor + Mailto Dinamikus Generálás */
         let currentCategory = 'pc';
+        let currentMailtoUrl = '';
 
         const categoryNames = {
             hu: { pc: 'PC / Laptop Szerviz', audio: 'Autóhifi & Szigetelés', web: 'Weboldalkészítés' },
@@ -1395,11 +1560,45 @@
                        `Best regards,\n[Your Name]\n[Phone Number]`;
             }
 
-            const mailtoUrl = `mailto:info@gmtech.hu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            document.getElementById('calcSendBtn').setAttribute('href', mailtoUrl);
-            document.getElementById('mainEmailBtn').setAttribute('href', mailtoUrl);
+            currentMailtoUrl = `mailto:info@gmtech.hu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            document.getElementById('mainEmailBtn').setAttribute('href', currentMailtoUrl);
         }
+
+        function toggleCalcBtn() {
+            const isChecked = document.getElementById('calcGdprCheck').checked;
+            const btn = document.getElementById('calcSendBtn');
+            if (isChecked) {
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            }
+        }
+
+        function handleCalcSend() {
+            const isChecked = document.getElementById('calcGdprCheck').checked;
+            if (!isChecked) {
+                alert(currentLang === 'hu' ? 'A küldéshez kérjük fogadja el az Adatkezelési Tájékoztatót!' : 'Please accept the Privacy Policy before sending!');
+                return;
+            }
+            window.location.href = currentMailtoUrl;
+        }
+
+        /* 5. Popup Modal Kezelő */
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             applyLanguage(currentLang);
