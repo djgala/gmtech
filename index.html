@@ -64,6 +64,12 @@
             text-decoration: none;
         }
 
+        /* Megnövelt logó méret a fejlécben */
+        .logo img {
+            height: 120px;
+            object-fit: contain;
+        }
+
         .logo span {
             color: var(--accent-blue);
             text-shadow: 0 0 12px var(--accent-blue-glow);
@@ -861,15 +867,7 @@
     <!-- Header -->
     <header>
         <a href="#" class="logo">
-            <svg width="32" height="32" viewBox="0 0 100 100">
-                <path d="M 10 30 L 10 10 L 30 10" fill="none" stroke="#00E5FF" stroke-width="6"/>
-                <path d="M 70 10 L 90 10 L 90 30" fill="none" stroke="#00E5FF" stroke-width="6"/>
-                <path d="M 90 70 L 90 90 L 70 90" fill="none" stroke="#00E5FF" stroke-width="6"/>
-                <path d="M 30 90 L 10 90 L 10 70" fill="none" stroke="#00E5FF" stroke-width="6"/>
-                <path d="M 45 35 L 30 35 C 22 35 20 42 20 55 C 20 68 22 75 30 75 L 45 75 L 45 55 L 35 55" fill="none" stroke="#FFF" stroke-width="6"/>
-                <path d="M 55 75 L 55 35 L 67 55 L 79 35 L 79 75" fill="none" stroke="#00E5FF" stroke-width="6"/>
-            </svg>
-            GM <span>TECH</span>
+            <img src="gmtech_logo.svg" alt="GM Logo">
         </a>
         <div class="nav-right">
             <nav>
@@ -989,14 +987,14 @@
         </div>
     </div>
 
-    <!-- REFERENCIÁK SZEKCIÓ (9 DB KÁRTYA + 4 ELŐTTE/UTÁNA + LOAD MORE) -->
+    <!-- REFERENCIÁK SZEKCIÓ -->
     <div class="container" id="referenciak">
         <h2 class="section-title lang" data-hu="Kiemelt Referenciák" data-en="Featured Projects">Kiemelt Referenciák</h2>
         <p class="section-subtitle lang" data-hu="Néhány korábbi munkánk és megvalósított projektünk (Húzza a képeket az Előtte/Utána nézethez!)" data-en="A selection of our recent projects (Drag images for Before/After view!)">Néhány korábbi munkánk és megvalósított projektünk (Húzza a képeket az Előtte/Utána nézethez!)</p>
 
         <div class="grid" id="refGrid">
             
-            <!-- 1. KÁRTYA: Dell Mini PC Portalanítás (ELŐTTE/UTÁNA #1) -->
+            <!-- 1. KÁRTYA -->
             <div class="card ref-card ref-item">
                 <div class="card-ba-slider">
                     <div class="card-ba-image" style="background-image: url('https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80');"></div>
@@ -1017,7 +1015,7 @@
                 </div>
             </div>
 
-            <!-- 2. KÁRTYA: Autóhifi Fejegység Beszerelése (ELŐTTE/UTÁNA #2) -->
+            <!-- 2. KÁRTYA -->
             <div class="card ref-card ref-item">
                 <div class="card-ba-slider">
                     <div class="card-ba-image" style="background-image: url('https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80');"></div>
@@ -1038,7 +1036,7 @@
                 </div>
             </div>
 
-            <!-- 3. KÁRTYA: Dell Latitude RAM Bővítés (ELŐTTE/UTÁNA #3) -->
+            <!-- 3. KÁRTYA -->
             <div class="card ref-card ref-item">
                 <div class="card-ba-slider">
                     <div class="card-ba-image" style="background-image: url('https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80');"></div>
@@ -1059,7 +1057,7 @@
                 </div>
             </div>
 
-            <!-- 4. KÁRTYA: Ajtószigetelés Autóhifihez (ELŐTTE/UTÁNA #4) -->
+            <!-- 4. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <div class="card-ba-slider">
                     <div class="card-ba-image" style="background-image: url('https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80');"></div>
@@ -1080,7 +1078,7 @@
                 </div>
             </div>
 
-            <!-- 5. KÁRTYA: LabVIEW Automata Tesztpad (Sima Kép) -->
+            <!-- 5. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <img src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=800&q=80" alt="LabVIEW Tesztpad">
                 <div class="card-content">
@@ -1095,7 +1093,7 @@
                 </div>
             </div>
 
-            <!-- 6. KÁRTYA: Egyedi Landing Page Weboldal (Sima Kép) -->
+            <!-- 6. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Weboldal Készítés">
                 <div class="card-content">
@@ -1110,7 +1108,7 @@
                 </div>
             </div>
 
-            <!-- 7. KÁRTYA: Mélyláda & Erősítő Bekötés (Sima Kép) -->
+            <!-- 7. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <img src="https://images.unsplash.com/photo-1558441719-6745080737c6?auto=format&fit=crop&w=800&q=80" alt="Erősítő Bekötés">
                 <div class="card-content">
@@ -1125,7 +1123,7 @@
                 </div>
             </div>
 
-            <!-- 8. KÁRTYA: Céges Laptop Flotta Karbantartás (Sima Kép) -->
+            <!-- 8. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=800&q=80" alt="IT Flotta Szerviz">
                 <div class="card-content">
@@ -1140,7 +1138,7 @@
                 </div>
             </div>
 
-            <!-- 9. KÁRTYA: Egyedi Műszer Illesztés & DAQ (Sima Kép) -->
+            <!-- 9. KÁRTYA -->
             <div class="card ref-card ref-item ref-item-hidden">
                 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Műszerillesztés">
                 <div class="card-content">
@@ -1157,7 +1155,6 @@
 
         </div>
 
-        <!-- Továbbiak Betöltése Gomb -->
         <div class="load-more-wrapper">
             <button id="loadMoreBtn" class="btn btn-outline lang" onclick="loadMoreRef()" data-hu="További Referenciák Betöltése (+3)" data-en="Load More Projects (+3)">További Referenciák Betöltése (+3)</button>
         </div>
@@ -1171,7 +1168,6 @@
         <div class="calc-box">
             <div class="calc-grid">
                 <div>
-                    <!-- 1. Kategória választás -->
                     <div class="calc-group">
                         <label class="lang" data-hu="1. Válasszon szolgáltatási kategóriát:" data-en="1. Choose Service Category:">1. Válasszon szolgáltatási kategóriát:</label>
                         <div class="calc-options">
@@ -1190,7 +1186,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Options (PC) -->
                     <div class="calc-group" id="opts-pc">
                         <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
                         <div class="calc-checkboxes">
@@ -1209,7 +1204,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Options (Audio) -->
                     <div class="calc-group" id="opts-audio" style="display: none;">
                         <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
                         <div class="calc-checkboxes">
@@ -1228,7 +1222,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Options (Web) -->
                     <div class="calc-group" id="opts-web" style="display: none;">
                         <label class="lang" data-hu="2. Válasszon elvégzendő feladatokat:" data-en="2. Select required options:">2. Válasszon elvégzendő feladatokat:</label>
                         <div class="calc-checkboxes">
@@ -1244,7 +1237,6 @@
                     </div>
                 </div>
 
-                <!-- Result Box -->
                 <div class="calc-result-box">
                     <div>
                         <span class="lang" data-hu="VÁRHATÓ MUNKADÍJ BECSLÉS:" data-en="ESTIMATED SERVICE COST:" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px;">VÁRHATÓ MUNKADÍJ BECSLÉS:</span>
@@ -1256,7 +1248,6 @@
                         </p>
                     </div>
 
-                    <!-- GDPR Elfogadó Checkbox -->
                     <div class="gdpr-checkbox-wrapper">
                         <input type="checkbox" id="calcGdprCheck" onchange="toggleCalcBtn()">
                         <label for="calcGdprCheck">
